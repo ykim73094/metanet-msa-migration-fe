@@ -86,7 +86,7 @@ function Timer() {
     setSelected(choice); // 선택 상태 업데이트
   };
 
-  // 운동 시작 전 인스로 텍스트 & 3초 타이머
+  // 시작 전 인스로 텍스트 & 3초 타이머
   useEffect(() => {
     if (stage === 'intro') {
       const timeout = setTimeout(() => {
@@ -100,8 +100,8 @@ function Timer() {
         const countdown = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
         return () => clearTimeout(countdown);
       } else {
-        setStage('exercise'); // 운동 단계로 전환
-        setTimeLeft(7); // 운동 시간 초기화
+        setStage('exercise');
+        setTimeLeft(7);
       }
     }
   }, [stage, timeLeft]);
@@ -114,7 +114,7 @@ function Timer() {
       if (cycleCount < 2) {
         setCycleCount(cycleCount + 1);
         setStage('exercise');
-        setTimeLeft(7); // 운동 시간 초기화
+        setTimeLeft(7); 
       } else {
         setStage('finished');
       }
@@ -125,8 +125,6 @@ function Timer() {
     <S.Component>
       {stage === 'intro' && <S.Intro><span style={{ color: '#5061ff'}}>3초</span>&nbsp;후<br/>{exerciseName}<br/>퀴즈가 시작됩니다.</S.Intro>}
       {stage === 'countdown' && <S.ThreeTimer>{timeLeft}</S.ThreeTimer>}
-      {/* 운동 타이머 */}
-      
       {stage === 'exercise' && 
         // <div>
           <S.QuizBox>
