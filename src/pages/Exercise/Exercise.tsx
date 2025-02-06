@@ -10,7 +10,7 @@ function Exercise() {
   const navigation = useNavigate();
 
   const [reason, setReason] = useState("");
-  const [exerciseName, setExerciseName] = useState("오늘의 시사경제 Quiz 시작하기");
+  const [exerciseName, setExerciseName] = useState("'오늘의 시사경제 Quiz 시작하기'");
 
   useEffect(() => {
 
@@ -40,25 +40,25 @@ function Exercise() {
   
   return (
     <div>
-      <Header text={"맞춤형 운동 추천"}/>
+      <Header text={"오늘의 금융 Quiz"}/>
       <S.Component>
-        <S.HeaderTitle>{localStorage.getItem('user_id')}님을 위한 추천 운동이에요!</S.HeaderTitle>
+        <S.HeaderTitle>{localStorage.getItem('user_id')}님을 위한 추천 난이도예요!</S.HeaderTitle>
 
         <S.ExerciseBox>
-          <S.ExerciseTitle>초심자</S.ExerciseTitle>
-          <S.Reason>이 운동은 사용자의 등과 팔 근육을 강화하는 데 효과적입니다. 사용자의 운동 목표가 건강 유지이기 때문에, 바벨 끌어당기기는 전신 근육을 효과적으로 활용하면서 체력을 향상시키는 데 도움이 될 것입니다.</S.Reason>
+          <S.ExerciseTitle>메</S.ExerciseTitle>
+          <S.Reason>금융과 경제 분야에 관심을 두기 시작한 단계에요!</S.Reason>
           <S.StartBtn onClick={onClickStartBtn}>시작하기</S.StartBtn>
         </S.ExerciseBox>
 
         <S.ExerciseBox>
-          <S.ExerciseTitle>숙련자</S.ExerciseTitle>
-          <S.Reason>이 운동은 사용자의 등과 가슴 근육을 강화하는 데 도움이 됩니다. 사용자의 지적장애 등급이 2등급이고 보통의 운동 경험이 있으므로, 이 운동은 적절한 강도와 안정성을 유지하면서 수행할 수 있는 운동입니다.</S.Reason>
+          <S.ExerciseTitle>타</S.ExerciseTitle>
+          <S.Reason>투자 경험 및 금융 경제 분야를 지속적으로 정보를 찾아보고 있어요!</S.Reason>
           <S.StartBtn onClick={onClickStartBtn}>시작하기</S.StartBtn>
         </S.ExerciseBox>
 
         <S.ExerciseBox>
-          <S.ExerciseTitle>전문가</S.ExerciseTitle>
-          <S.Reason>파워클린은 전신 근육을 강화하고 근력과 평형을 향상시키는 데 도움이 됩니다. 사용자의 보통의 운동 경험을 고려할 때, 새로운 도전과 다양한 근육을 활용할 수 있는 파워클린은 사용자에게 적합한 운동입니다. 유연성을 유지하면서 안정적으로 운동을 수행해주세요.</S.Reason>
+          <S.ExerciseTitle>넷</S.ExerciseTitle>
+          <S.Reason>현재 금융 경제 분야에서 종사하는 현직자에에요!</S.Reason>
           <S.StartBtn onClick={onClickStartBtn}>시작하기</S.StartBtn>
         </S.ExerciseBox>
         <Footer/>

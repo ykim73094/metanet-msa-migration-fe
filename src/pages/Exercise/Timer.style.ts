@@ -168,3 +168,35 @@ export const ExerciseName = styled.div`
     margin-bottom: 20px;
     margin-top: -30px;
 `;
+
+export const QuizBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+`;
+
+export const QuizButton = styled.button`
+  background-color: ${(props) => (props.isSelected ? '#ffcc00' : '#ffffff')};
+  color: ${(props) => (props.isSelected ? '#ffffff' : '#000000')};
+  border: 2px solid #5061ff;
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 20px;
+  font-weight: bold;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.2);
+`;
+
+export const ResultText = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 30px;
+  color: ${(props) => (props.correct ? 'green' : 'red')};
+`;
