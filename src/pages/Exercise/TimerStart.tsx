@@ -20,7 +20,7 @@ function TimerStart() {
 
   return (
     <div>
-        <Header text={"맞춤형 운동 추천"}/>
+        <Header text={"Quiz"}/>
         <S.Component>
             <S.HeaderText>운동명</S.HeaderText>
             <S.TimerStartTitle>{exerciseName}</S.TimerStartTitle>

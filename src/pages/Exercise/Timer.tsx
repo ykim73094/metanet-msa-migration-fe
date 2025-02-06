@@ -90,7 +90,7 @@ function Timer() {
         return () => clearTimeout(countdown);
       } else {
         setStage('exercise'); // 운동 단계로 전환
-        setTimeLeft(60); // 운동 시간 초기화
+        setTimeLeft(10); // 운동 시간 초기화
       }
     }
   }, [stage, timeLeft]);
@@ -98,12 +98,12 @@ function Timer() {
   const handleComplete = () => {
     if (stage === 'exercise') {
       setStage('rest');
-      setTimeLeft(20); // 휴식 시간 초기화
+      setTimeLeft(5); // 휴식 시간 초기화
     } else if (stage === 'rest') {
       if (cycleCount < 2) {
         setCycleCount(cycleCount + 1);
         setStage('exercise');
-        setTimeLeft(60); // 운동 시간 초기화
+        setTimeLeft(10); // 운동 시간 초기화
       } else {
         setStage('finished');
       }
@@ -123,7 +123,7 @@ function Timer() {
             운동중입니다.
           </S.ExerciseBox>
           <S.CircleTimer>
-            <CircularTimer duration={60} onComplete={handleComplete} isAnimated={true} />
+            <CircularTimer duration={10} onComplete={handleComplete} isAnimated={true} />
           </S.CircleTimer>
         </div>
       }
@@ -136,7 +136,7 @@ function Timer() {
             쉬는시간입니다.
           </S.ExerciseBox>
           <S.CircleTimer>
-            <CircularTimer duration={20} onComplete={handleComplete} isAnimated={true} />
+            <CircularTimer duration={5} onComplete={handleComplete} isAnimated={true} />
           </S.CircleTimer>
         </div>
       }
