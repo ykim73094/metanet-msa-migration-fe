@@ -51,6 +51,7 @@
     "@babel/node": "^7.26.0",
     "@babel/preset-react": "^7.25.9",
     "@svgr/webpack": "^8.1.0",
+    "ajv": "^7.2.4",
     "typescript": "^5.7.2"
   },
   "homepage": "https://makingbarrierfree.shop"
