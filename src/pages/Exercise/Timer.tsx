@@ -70,12 +70,23 @@ function Timer() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState(null); // 선택된 버튼 상태
   const exerciseName = useRecoilValue(ExerciseNameAtom);
+  const [quizResult, setQuizResult] = useState(null);
 
+  
+  const handleAnswer = (answer) => {
+    // O/X 정답 여부를 판단 (기본적으로 O가 정답으로 가정)
+    setQuizResult(answer === 'O');
+    setTimeout(() => {
+      setStage('rest');
+      setTimeLeft(7);
+    }, 2000);
+  };
+  
   const handleClick = (choice) => {
     setSelected(choice); // 선택 상태 업데이트
   };
 
-  // 운동 시작 전 인스로 텍스트 & 3초 타이머
+  // 시작 전 인스로 텍스트 & 3초 타이머
   useEffect(() => {
     if (stage === 'intro') {
       const timeout = setTimeout(() => {
@@ -89,8 +100,8 @@ function Timer() {
         const countdown = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
         return () => clearTimeout(countdown);
       } else {
-        setStage('exercise'); // 운동 단계로 전환
-        setTimeLeft(60); // 운동 시간 초기화
+        setStage('exercise');
+        setTimeLeft(7);
       }
     }
   }, [stage, timeLeft]);
@@ -98,12 +109,12 @@ function Timer() {
   const handleComplete = () => {
     if (stage === 'exercise') {
       setStage('rest');
-      setTimeLeft(20); // 휴식 시간 초기화
+      setTimeLeft(2); // 휴식 시간 초기화
     } else if (stage === 'rest') {
       if (cycleCount < 2) {
         setCycleCount(cycleCount + 1);
         setStage('exercise');
-        setTimeLeft(60); // 운동 시간 초기화
+        setTimeLeft(7); 
       } else {
         setStage('finished');
       }
@@ -112,20 +123,25 @@ function Timer() {
 
   return (
     <S.Component>
-      {stage === 'intro' && <S.Intro><span style={{ color: '#5061ff'}}>3초</span>&nbsp;후<br/>{exerciseName}<br/>운동이 시작됩니다.</S.Intro>}
+      {stage === 'intro' && <S.Intro><span style={{ color: '#5061ff'}}>3초</span>&nbsp;후<br/>{exerciseName}<br/>퀴즈가 시작됩니다.</S.Intro>}
       {stage === 'countdown' && <S.ThreeTimer>{timeLeft}</S.ThreeTimer>}
-      {/* 운동 타이머 */}
       {stage === 'exercise' && 
-        <div>
+        // <div>
+          <S.QuizBox>
           <S.ExerciseName>'{exerciseName}'</S.ExerciseName>
           <S.SetBox>SET {cycleCount + 1}</S.SetBox>
           <S.ExerciseBox>
-            운동중입니다.
+            다음 중 맞으면 O, 틀리면 X를 눌러주세요.
           </S.ExerciseBox>
+          <div style={{display: 'flex', justifyContent: 'center', padding: '30px'}}>
+            <S.QuizButton onClick={() => handleAnswer('O')}>⭕</S.QuizButton>
+            <S.QuizButton onClick={() => handleAnswer('X')}>❌</S.QuizButton>
+          </div>
           <S.CircleTimer>
-            <CircularTimer duration={60} onComplete={handleComplete} isAnimated={true} />
+            <CircularTimer duration={7} onComplete={handleComplete} isAnimated={true} />
           </S.CircleTimer>
-        </div>
+        {/* </div> */}
+        </S.QuizBox> 
       }
       {/* 쉬는 타이머 */}
       {stage === 'rest' && 
@@ -133,16 +149,16 @@ function Timer() {
           <S.ExerciseName>'{exerciseName}'</S.ExerciseName>
           <S.SetBox>SET {cycleCount + 1}</S.SetBox>
           <S.ExerciseBox>
-            쉬는시간입니다.
+            준비하세요!
           </S.ExerciseBox>
           <S.CircleTimer>
-            <CircularTimer duration={20} onComplete={handleComplete} isAnimated={true} />
+            <CircularTimer duration={2} onComplete={handleComplete} isAnimated={true} />
           </S.CircleTimer>
         </div>
       }
       {stage === 'finished' && (
         <div>
-          <S.Finish>운동이 종료되었습니다.<br/>추천한 운동이 어땠나요?</S.Finish>
+          <S.Finish>퀴즈가 종료되었습니다.<br/>추천한 퀴즈가 어땠나요?</S.Finish>
           <S.ChoiceBox>
             <S.ChoiceButton
               isSelected={selected === 'bad'}
@@ -164,7 +180,7 @@ function Timer() {
               if (selected != null) {
                 navigate('/exercise');
               } else{
-                alert('추천이 어땠는지 선택해 주세요.');
+                alert('퀴즈가 어땠는지 선택해 주세요.');
               }
             }}
           >

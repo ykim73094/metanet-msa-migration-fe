@@ -20,13 +20,13 @@ function TimerStart() {
 
   return (
     <div>
-        <Header text={"맞춤형 운동 추천"}/>
+        <Header text={"오늘의 금융 Quiz"}/>
         <S.Component>
-            <S.HeaderText>운동명</S.HeaderText>
+            <S.HeaderText>★</S.HeaderText>
             <S.TimerStartTitle>{exerciseName}</S.TimerStartTitle>
             <S.TimerStartText>
-                한세트당 <text style={{color:"#5061ff"}}>1분</text>, 쉬는시간 <text style={{color:"#5061ff"}}>20초</text>씩 <text style={{color:"#5061ff"}}>3세트</text> 진행합니다.<br/>
-                시작하기 버튼을 누르면, <br/><text style={{color:"#5061ff"}}>3초 뒤 운동 타이머가 시작</text>됩니다.
+                한문제당 <text style={{color:"#5061ff"}}>7초</text>, 쉬는시간 <text style={{color:"#5061ff"}}>3번</text>씩 <text style={{color:"#5061ff"}}>3문제가</text> 출제됩니다.<br/>
+                시작하기 버튼을 누르면, <br/><text style={{color:"#5061ff"}}>3초 뒤 타이머가 시작</text>됩니다.
             </S.TimerStartText>
             <S.StartBtn onClick={onClickStartBtn}>시작하기</S.StartBtn>
         </S.Component>
