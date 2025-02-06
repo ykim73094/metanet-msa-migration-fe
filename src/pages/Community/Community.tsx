@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import * as S from './Community.style';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import { ReactComponent as InsertBtn } from '../../assets/InsertBtn.svg';
 import { ReactComponent as Time } from '../../assets/Time.svg';
 import { ReactComponent as Running } from '../../assets/Running.svg';
+import { realEstateApi } from '../../api/axios';
 
 function Community() {
   const navigate = useNavigate();
@@ -23,27 +23,22 @@ function Community() {
 
   // 동호회 리스트 조회 API 호출
   useEffect(() => {
-    axios
+    realEstateApi
       .get('/real-estates', {
-        headers: {
-          access: localStorage.getItem('access'),
-        },
         params: {
           limit: 50,
           offset: 20,
         },
       })
       .then((response) => {
-        // 데이터가 성공적으로 돌아오면 상태를 업데이트
         const data = response.data;
         console.log(data);
-        setClubList(data); // 데이터 저장
-        //console.log(typeof data);
+        setClubList(data);
       })
       .catch((error) => {
         console.error('데이터 로딩 실패:', error);
       });
-  }, []); // 컴포넌트가 처음 렌더링될 때만 실행
+  }, []);
 
   // 등록 버튼 클릭 시
   function onClickInsertBtn() {
