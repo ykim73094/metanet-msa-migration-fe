@@ -14,10 +14,17 @@ function Community() {
   // 동호회 리스트 상태 변수
   const [clubList, setClubList] = useState([]);
 
+  const imageList = [
+    '/image/house1.jpg',
+    '/image/house2.jpg',
+    '/image/house3.jpg',
+    // 필요한 만큼 이미지 추가
+  ];
+
   // 동호회 리스트 조회 API 호출
   useEffect(() => {
     axios
-      .get('/club/list', {
+      .get('/real-estates', {
         headers: {
           access: localStorage.getItem('access'),
         },
@@ -50,18 +57,52 @@ function Community() {
       {/* 동호회 리스트 출력 */}
       <S.ListContainer>
         {Array.isArray(clubList) && clubList.length > 0 ? (
-            clubList.map((club, index) => (
-            <S.ListItem key={index}>
-              <div style={{fontSize:'17px', fontWeight:'600', color:'#5061ff', marginBottom:'10px'}}>{club.ctprvn_nm}</div>
-              <div style={{fontSize:'20px', fontWeight:'600', marginBottom:'20px'}}>{club.nm}</div>
-              <div style={{display: 'flex'}}><Time/><div style={{fontSize:'17px', fontWeight:'500', marginTop:'2px', marginBottom:'15px', marginLeft:'10px'}}>{club.oper_time_cn}</div></div>
-              <div style={{display: 'flex'}}><Running/><div style={{fontSize:'17px', fontWeight:'500', marginTop:'2px', marginLeft:'10px'}}>{club.item_nm}</div></div>
+          clubList.map((club, index) => (
+            <S.ListItem
+              key={index}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                marginBottom: '20px',
+              }}
+            >
+              {/* 이미지 선택: imageList 배열에서 index에 따라 선택하거나, 모듈로 연산을 사용 */}
+              <img
+                src={imageList[index % imageList.length]}
+                alt="매물 이미지"
+                style={{
+                  width: '100px',
+                  height: '100px',
+                  objectFit: 'cover',
+                  marginRight: '15px',
+                }}
+              />
+              <div>
+                <div
+                  style={{
+                    fontSize: '20px',
+                    fontWeight: '600',
+                    marginBottom: '10px',
+                  }}
+                >
+                  {club.location} - {club.price}
+                </div>
+                <div style={{ fontSize: '17px', marginBottom: '10px' }}>
+                  {club.additionalInfo}
+                </div>
+                <div style={{ fontSize: '15px', marginBottom: '10px' }}>
+                  Broker: {club.brokerName}
+                </div>
+                <div style={{ fontSize: '15px' }}>
+                  Phone: {club.phoneNumber}
+                </div>
+              </div>
             </S.ListItem>
           ))
         ) : (
-          <p>동호회 목록을 불러오는 중입니다...</p>
+          <p>동호회 목록을 불러오는 중입니다…</p>
         )}
-      </S.ListContainer>
+        </S.ListContainer>
 
       {/* 등록 버튼 */}
       <S.InsertBtn onClick={onClickInsertBtn}>
@@ -74,3 +115,4 @@ function Community() {
 }
 
 export default Community;
+
