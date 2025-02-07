@@ -97,3 +97,4 @@ jobs:
             git commit -m "Update image to ykim73094/metanet-msa-migration-fe:${{ env.TAG }}"
             git push origin main
           fi
+
