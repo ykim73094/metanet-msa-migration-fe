@@ -35,7 +35,7 @@ jobs:
         id: build_and_push
         uses: docker/build-push-action@v4
         with:
-          context: ./docker-test
+          context: .
           push: true
           tags: |
             ykim73094/metanet-msa-migration-fe:latest
