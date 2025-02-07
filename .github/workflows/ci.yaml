@@ -41,4 +41,17 @@ jobs:
           tags: |
             ykim73094/metanet-msa-migration-fe:latest
             ykim73094/metanet-msa-migration-fe:${{ env.TAG }}
-            
+
+      - name: Checkout Deployment Repository
+        uses: actions/checkout@v3
+        with:
+          repository: ykim73094/argo-test
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Update Image
+        run: |
+          sed -i 's|image: ykim73094/argo-test:.*|image: ykim73094/metanet-msa-migration-fe:${{ env.TAG }}|g' argo-test/deployment.yaml
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -am "Update image to ykim73094/metanet-msa-migration-fe:${{ env.TAG }}"
+          git push origin master
