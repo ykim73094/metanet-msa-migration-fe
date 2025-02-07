@@ -6,7 +6,7 @@ import Footer from '../../components/Footer/Footer';
 import { ReactComponent as InsertBtn } from '../../assets/InsertBtn.svg';
 import { ReactComponent as Time } from '../../assets/Time.svg';
 import { ReactComponent as Running } from '../../assets/Running.svg';
-import { realEstateApi } from '../../api/axios';
+import { backApi } from '../../api/axios';
 
 function Community() {
   const navigate = useNavigate();
@@ -23,7 +23,7 @@ function Community() {
 
   // 동호회 리스트 조회 API 호출
   useEffect(() => {
-    realEstateApi
+    backApi
       .get('/real-estates', {
         params: {
           limit: 50,
