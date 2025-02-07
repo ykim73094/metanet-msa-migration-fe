@@ -63,7 +63,7 @@ jobs:
 
           if [ -f "$FILE" ]; then
             echo "Updating image in $FILE"
-            sed -i 's|image: ykim73094/metanet-msa-migration-fe:.*|image: ykim73094/metanet-msa-migration-fe:${{ env.TAG }}|g' "$FILE"
+            sed -i 's|image: ykim73094/metanet-msa-migration-fe[:]* *$|image: ykim73094/metanet-msa-migration-fe:${{ env.TAG }}|g' "$FILE"
           else
             echo "Error: deployment.yaml not found!"
             exit 1
