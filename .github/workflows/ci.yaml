@@ -64,6 +64,12 @@ jobs:
           if [ -f "$FILE" ]; then
             echo "Updating image in $FILE"
             sed -i 's|image: ykim73094/metanet-msa-migration-fe[:]* *$|image: ykim73094/metanet-msa-migration-fe:${{ env.TAG }}|g' "$FILE"
+
+            # 변경 사항 확인
+            if git diff --quiet "$FILE"; then
+              echo "No changes detected in $FILE"
+              exit 0  # 변경 사항이 없으면 오류 없이 종료
+            fi
           else
             echo "Error: deployment.yaml not found!"
             exit 1
@@ -74,5 +80,12 @@ jobs:
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
           git add deployment.yaml
+
+          # 변경 사항이 있을 경우에만 commit
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
           git commit -m "Update image to ykim73094/metanet-msa-migration-fe:${{ env.TAG }}"
           git push origin main
