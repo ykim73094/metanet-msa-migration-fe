@@ -14,14 +14,16 @@ FROM nginx:alpine
 # 환경 변수 적용을 위한 도구 설치 (envsubst)
 RUN apk add --no-cache bash gettext
 
-# 커스텀 Nginx 설정 파일을 템플릿으로 복사
+# Nginx 설정 파일 템플릿 복사
 COPY default.conf.template /etc/nginx/conf.d/default.conf.template
+
+# 환경 변수 적용 후 변환 (Build Time)
+RUN envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
 # 빌드된 React 파일을 Nginx의 정적 파일 경로로 복사
 COPY --from=builder /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
-# 환경 변수로 Nginx 설정 파일 생성 후 실행
-CMD ["sh", "-c", "envsubst '$BACKEND_URL' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && cat /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
-
+# Nginx 실행
+CMD ["nginx", "-g", "daemon off;"]
