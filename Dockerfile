@@ -23,4 +23,5 @@ COPY --from=builder /app/build /usr/share/nginx/html
 EXPOSE 80
 
 # 환경 변수로 Nginx 설정 파일 생성 후 실행
-CMD ["sh", "-c", "envsubst '$BACKEND_URL' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "envsubst '$BACKEND_URL' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && cat /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+
