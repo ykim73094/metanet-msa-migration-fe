@@ -17,13 +17,10 @@ RUN apk add --no-cache bash gettext
 # Nginx 설정 파일 템플릿 복사
 COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 
-# 환경 변수 적용 후 변환 (Build Time)
-RUN envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
-
 # 빌드된 React 파일을 Nginx의 정적 파일 경로로 복사
 COPY --from=builder /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
-# Nginx 실행
-CMD ["nginx", "-g", "daemon off;"]
+# 환경 변수 적용 후 변환 (Runtime에 실행)
+CMD ["sh", "-c", "envsubst '$BACKEND_URL' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && cat /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
